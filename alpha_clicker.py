@@ -48,11 +48,17 @@
 import sys
 import subprocess
 import time
+import argparse
 from pymavlink import mavutil
 
-remote_host_username = 'xyz'
-remote_host_ip = '192.168.0.0.1'
-remote_path = '/home/xyz/images'
+parser = argparse.ArgumentParser(description="Drone camera capture and SCP")
+parser.add_argument('--user',required=True)
+parser.add_argument('--ip',required=True)
+parser.add_argument('--path',required=True)
+args = parser.parse_args()
+remote_host_username = args.user
+remote_host_ip = args.ip
+remote_path = args.path
 
 try:
     master = mavutil.mavlink_connection('/dev/ttyACM0', baud=115200)
